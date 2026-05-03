@@ -1,0 +1,191 @@
+# One Ask Away (OAA)
+
+## Product
+Two-sided platform connecting McGill MMA students with alumni for scoped, short career conversations. Students get past cold-outreach paralysis with AI-drafted, scope-aware asks. Alumni stay in control by declaring offerings and non-offerings before requests land in their inbox.
+
+Core differentiator: niche-program-specific, conversion-oriented, built around alumni pain points around cold asks.
+
+## Personas
+**Student side**
+- Maya (22-24, MMA student): shy, gets ghosted on LinkedIn, freezes at opening message
+- Kaylie (25-27, MMA student): new to Canada, pivoting marketing -> data science, wants alumni with similar pivot stories
+
+**Alumni side**
+- Adam (30-32, Director of Data, Alumni Ambassador): drowning in generic LinkedIn asks, struggles to signal scope
+- Annie (27-29, Marketing Data Scientist): too busy to give back, gets annoyed by out-of-scope asks
+
+## Tech stack
+- Next.js 15 App Router + TypeScript + Tailwind CSS
+- shadcn/ui for base components
+- Prisma + Postgres (Supabase) for data layer
+- Anthropic API for AI features
+- Resend for email
+- ics package for calendar invites
+
+## Design system
+
+### Colors (mostly mono, one warm accent)
+--bg-canvas: #FAFAF7
+--bg-surface: #FFFFFF
+--bg-inverse: #0E0E0C
+--border-hairline: #ECECE8
+--text-primary: #0E0E0C
+--text-secondary: #6E6E6E
+--text-tertiary: #A8A6A0
+--accent-primary: #D17455
+--accent-on-dark: #E89876
+--status-success: #4F6B4A
+--status-warning: #C68A2E
+--status-danger: #A14A35
+
+### Typography
+Single condensed sans-serif (Switzer or General Sans from Fontshare). Weight + scale do all the work.
+
+Scale:
+- display-xl: 96px / 600 / -2% (landing hero only)
+- display-l: 64px / 600 / -1.5% (section openers)
+- display-m: 44px / 600 / -1% (page titles)
+- heading-l: 28px / 600 / -0.5%
+- heading-m: 20px / 600 / 0
+- heading-s: 16px / 600 / 0
+- body-l: 18px / 400 / 0
+- body-m: 15px / 400 / 0
+- body-s: 13px / 400 / +1%
+- eyebrow: 12px / 500 / +8% / UPPERCASE
+
+Line height: 1.05 display, 1.2 headings, 1.55 body.
+
+### Spacing (8pt grid)
+4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 / 128 / 160
+Section vertical rhythm: 96-128px between blocks. Card padding 24-32. Hero padding 128-160 vertical.
+
+### Radius (sharp)
+--radius-xs: 2px (chips/tags)
+--radius-s: 4px (inputs/buttons)
+--radius-m: 6px (cards)
+--radius-l: 12px (modals)
+--radius-pill: 999px (status chips only)
+
+### Elevation
+Almost none. Borders + bg contrast carry the weight. Shadows are warm-tinted, used sparingly on modals only.
+
+### Iconography
+Lucide icons, default (not rounded). 1.5px stroke, 20-24px.
+
+### Motion
+--ease-default: cubic-bezier(0.2, 0.8, 0.2, 1)
+--ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1)
+--duration-quick: 150ms
+--duration-base: 240ms
+--duration-emphatic: 480ms
+
+## Conventions (must follow on every component)
+- Chips: neutral white container + hairline border. Color only in 6px dot for status, or icon for offerings. Never tinted fill.
+- Cards: white bg + hairline border, never tinted fills.
+- Green is signal, never fill.
+- No exclamation marks in copy, ever.
+- Sentence case everywhere except eyebrow labels (UPPERCASE).
+- Decline framing as redirect, never rejection.
+- All buttons sharp (4px radius), no rounded corners.
+- All shadows warm-tinted, not pure black rgba.
+
+## Data model (11 entities)
+1. User: id, email, password_hash, school, status, roles[]
+2. StudentProfile: bio, program, year, target_city, experience_level
+3. AlumnusProfile: bio, current_city/role/company, ex_companies[], industries[], cohort, linkedin_url
+4. Aspiration / HelpArea / Industry: ranked join tables off StudentProfile
+5. OfferingItem: alumnus_id, type enum, kind flag (offer | non_offer)
+6. AvailabilitySlot: alumnus_id, day_of_week, start, end, timezone, recurrence
+7. Match: student_id, alumnus_id, score, reasons[], generated_at, viewed_at, expired_at (persisted, not live)
+8. Request: student_id, alumnus_id, opening_message, topic_id (FK to OfferingItem, must be kind=offer), question, format, proposed_times[], chosen_time, status, decline_reason, decline_note, scope_match_score, ai_regenerations_used
+9. Call: request_id (1:1), confirmed_time, meeting_link, ics_sent_at, status
+10. StudentReflection: call_id, helpful_rating, insights, ai_next_step, edited_next_step, recontact_window
+11. AlumnusNote: call_id, private_notes, strength_tags[], future_role_tags[]
+
+Plus FollowUpRequest (chains Request -> Request), Notification, Report.
+
+## Build order (vertical slices)
+1. Foundation: design tokens, component library (Button, Chip, Card, Input)
+2. Auth + student onboarding
+3. Matching + ask flow (the heart of the product)
+4. Alumnus track (offerings/non-offerings, inbox)
+5. Call + reflection + Contact Again
+
+## Out of scope for MVP
+- LinkedIn integration
+- Calendar sync (Google/Outlook) - we send .ics only
+- Mobile app
+- Aggregate program admin dashboard
+- Donation features
+
+## When in doubt
+- Match the design reference, don't redesign
+- Sentence case copy, no exclamation marks
+- Neutral containers, color in dots/icons only
+- Build the simplest working version first, AI features last
+
+## OAA Design System
+
+This is the canonical spec for tokens, typography, components, and motion. Every screen build references this section and the design PDF. Where this section conflicts with the older "Design system" section above, this section wins.
+
+### Brand tokens
+Defined as CSS variables in `app/globals.css`:
+
+- `--oaa-clay: #D17455` — primary action, ranking badges, active states, links
+- `--oaa-bg: #F8F7F2` — page background, off-white
+- `--oaa-ink: #0E0E0E` — primary text, primary buttons
+- `--oaa-muted: #6B6B66` — secondary text, metadata
+- `--oaa-hairline: #E8E6DF` — dividers, card borders
+- `--oaa-clay-tint-bg: color-mix(in srgb, #D17455 12%, transparent)`
+- `--oaa-clay-tint-border: color-mix(in srgb, #D17455 40%, transparent)`
+
+### Typography
+- Sans: Switzer (loaded via Fontshare CDN `<link>` in `app/layout.tsx`)
+- Mono: IBM Plex Mono (loaded via `next/font/google`)
+
+Scale (size / line-height / tracking):
+- Display XL: 72 / 1.05 / -0.02em — landing hero
+- Display L: 56 / 1.1 / -0.02em — page headings
+- Display M: 40 / 1.15 / -0.01em — section titles
+- Body L: 18 / 1.5 — hero subtitles, intro
+- Body M: 15 / 1.5 — default body
+- Body S: 13 / 1.45 — metadata, helper
+- Mono caps: 11 / 1.4 / 0.08em uppercase — section labels
+
+### Spacing + layout
+- Page max-width: 1200px
+- Form max-width: 720px
+- Vertical rhythm: 96px between major sections, 32px between subsections, 16px within
+- Generous editorial whitespace, hairline dividers, no shadows
+
+### Component patterns
+- Section labels: mono caps, muted ink, format `01 · ASPIRATIONS`
+- Page header pattern: section label → display heading → body L description, 24px gaps between
+- Selectable cards: white bg default; clay-tint bg + clay-tint border when selected; optional numbered clay badge for ranked
+- Status pills: small rounded, light bg, colored dot prefix
+- Avatars: circle, mono initials; clay bg for students, ink bg for alumni
+- Primary CTA: ink bg, white text, optional arrow suffix
+- Secondary CTA: white bg, hairline border, ink text
+- Empty states: sentence-cased, end in period, no exclamations
+
+### Motion
+- Default: 150ms ease-out
+- Modals: fade + 8px translate-up, 200ms
+- Selection: instant, no transition
+- Drag-to-reorder: dnd-kit defaults
+
+### Shadcn usage policy
+Use shadcn ONLY for these primitives (logic-heavy, accessibility-critical):
+Dialog, Sheet, Popover, RadioGroup, Checkbox, Switch, Input, Textarea, Label, Form, Toast (sonner), Command.
+
+When installing shadcn components, immediately restyle them to OAA tokens in `globals.css` by mapping shadcn's CSS variables to OAA tokens (background → `--oaa-bg`, foreground → `--oaa-ink`, primary → `--oaa-ink`, accent → `--oaa-clay`, border → `--oaa-hairline`). Remove default shadows; use border-hairline.
+
+DO NOT use shadcn for: Card, Button, Badge, Avatar, Separator. These have custom OAA patterns built in `components/oaa/` instead.
+
+### Rules for every screen build (after this session)
+1. Re-read `AGENTS.md` and `CLAUDE.md` before starting.
+2. Reference the specific PDF page for the screen being built.
+3. Reuse atoms from `components/oaa/`, never inline a pattern that exists.
+4. Match PDF spacing exactly, don't approximate.
+5. Use Tailwind theme tokens via `@theme`, never arbitrary color values.
+6. Never use em dashes in copy or comments.
