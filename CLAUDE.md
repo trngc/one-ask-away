@@ -201,16 +201,19 @@ The product name shown to users is always the full phrase **"One Ask Away"**. Th
 ## Brand Assets
 
 **Primary logo (in-app):**
-- `/public/logo.svg` — full 3-circle mark, no padding, transparent background
-- `/public/logo.png` — raster fallback for email templates only
+- `/public/logo.svg` — wide frameless 3-circle mark. Use at ≥80px (landing hero, footer, marketing).
+- `/public/logo-mark.svg` — framed 3-circle mark matching favicon. Use at 24-40px (in-app nav headers).
+- `/public/logo.png` — raster fallback. Use only in email templates.
 
 **Favicon set (browser/device):**
-- `/app/icon.svg` — modern browsers, auto-injected by Next.js
+- `/app/icon.svg` — modern browsers, auto-injected by Next.js. Rounded-square frame containing the 3-circle mark, off-white fill, clay accent.
 - `/app/apple-icon.png` — iOS home screen, auto-injected by Next.js (180×180)
 - `/app/favicon.ico` — legacy browser fallback, auto-detected by Next.js (16×16 + 32×32)
 
+The favicon is intentionally framed (unlike the in-app logo) — the rounded-square container prevents iOS/Android adaptive-icon cropping and gives the mark proper visual containment at small sizes where the 3 circles alone would read as noise. Frame style: `--bg-canvas` (#FAFAF7) fill + `--border-hairline` (#ECECE8) 1px stroke + ~20% corner radius. The in-app logo at `/public/logo.svg` stays frameless because the in-app header already provides its own background.
+
 **Header pattern app-wide:**
-Render `/public/logo.svg` at 24px height + 8px gap + wordmark "One Ask Away" in Switzer 600 at heading-s size (16px / 600 / 0).
+Render `/public/logo-mark.svg` at 28px height + 8px gap + wordmark "One Ask Away" in Switzer 600 at heading-s size (16px / 600 / 0).
 
 **Color rule:**
 Logo only ever rendered in `--accent-primary` (#D17455) on light backgrounds, `--accent-on-dark` (#E89876) on inverse backgrounds. Never recolor outside these two values.
