@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
+import { Header } from "@/components/oaa/Header";
 import { SectionLabel } from "@/components/oaa/SectionLabel";
 import { GhostLink, PrimaryButton } from "@/components/oaa/buttons";
 import { Input } from "@/components/ui/input";
@@ -31,8 +32,10 @@ export default function SignInPage() {
   }
 
   return (
-    <main className="mx-auto max-w-[1200px] px-8 pb-32">
-      <div className="pt-8">
+    <>
+      <Header />
+      <main className="mx-auto max-w-[1200px] px-8 pb-32">
+        <div className="pt-8">
         <GhostLink href="/role-select" className="px-3 py-2 text-[14px]">
           ← Back
         </GhostLink>
@@ -90,6 +93,7 @@ export default function SignInPage() {
         </p>
       </div>
     </main>
+    </>
   );
 }
 

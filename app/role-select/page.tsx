@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
+import { Header } from "@/components/oaa/Header";
 import { SectionLabel } from "@/components/oaa/SectionLabel";
 import { SelectableCard } from "@/components/oaa/SelectableCard";
 import { GhostLink } from "@/components/oaa/buttons";
@@ -35,8 +36,10 @@ const tracks = [
 
 export default function RoleSelectPage() {
   return (
-    <main className="mx-auto max-w-[1200px] px-8 pb-32">
-      <div className="pt-8">
+    <>
+      <Header />
+      <main className="mx-auto max-w-[1200px] px-8 pb-32">
+        <div className="pt-8">
         <GhostLink href="/" className="px-3 py-2 text-[14px]">
           ← Back to landing
         </GhostLink>
@@ -96,5 +99,6 @@ export default function RoleSelectPage() {
         .
       </p>
     </main>
+    </>
   );
 }

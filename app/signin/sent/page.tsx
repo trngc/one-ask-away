@@ -5,6 +5,7 @@ import { Suspense, useEffect, useState } from "react";
 import { Check } from "lucide-react";
 
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
+import { Header } from "@/components/oaa/Header";
 import { GhostLink, SecondaryButton, SecondaryLink } from "@/components/oaa/buttons";
 
 const RESEND_SECONDS = 30;
@@ -83,15 +84,18 @@ function SentFallback() {
 
 export default function SentPage() {
   return (
-    <main className="mx-auto max-w-[1200px] px-8 pb-32">
-      <div className="pt-8">
-        <GhostLink href="/signin" className="px-3 py-2 text-[14px]">
-          ← Back
-        </GhostLink>
-      </div>
-      <Suspense fallback={<SentFallback />}>
-        <SentInner />
-      </Suspense>
-    </main>
+    <>
+      <Header />
+      <main className="mx-auto max-w-[1200px] px-8 pb-32">
+        <div className="pt-8">
+          <GhostLink href="/signin" className="px-3 py-2 text-[14px]">
+            ← Back
+          </GhostLink>
+        </div>
+        <Suspense fallback={<SentFallback />}>
+          <SentInner />
+        </Suspense>
+      </main>
+    </>
   );
 }

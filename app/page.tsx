@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Avatar } from "@/components/oaa/Avatar";
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
+import { Header } from "@/components/oaa/Header";
 import {
   PrimaryLink,
   SecondaryButton,
@@ -11,7 +12,7 @@ import {
 export default function Landing() {
   return (
     <div className="min-h-screen">
-      <TopNav />
+      <Header rightContent={<LandingNav />} />
       <main className="mx-auto max-w-[1200px] px-8">
         <Hero />
         <Explainer />
@@ -22,37 +23,23 @@ export default function Landing() {
   );
 }
 
-function TopNav() {
+function LandingNav() {
   return (
-    <header className="border-b border-oaa-hairline bg-oaa-bg">
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-8 py-5">
-        <Link href="/" className="flex items-center gap-2">
-          <span
-            aria-hidden
-            className="inline-block h-4 w-4 bg-oaa-clay"
-            style={{ borderRadius: "2px" }}
-          />
-          <span className="font-mono text-[13px] tracking-[0.04em] uppercase text-oaa-ink">
-            One Ask Away
-          </span>
-        </Link>
-        <nav className="flex items-center gap-2">
-          <Link
-            href="#about"
-            className="px-4 py-2 text-[14px] text-oaa-ink hover:bg-oaa-ink/5 rounded-sm"
-          >
-            About
-          </Link>
-          <Link
-            href="#faq"
-            className="px-4 py-2 text-[14px] text-oaa-ink hover:bg-oaa-ink/5 rounded-sm"
-          >
-            FAQ
-          </Link>
-          <SecondaryLink href="/signin">Log in</SecondaryLink>
-        </nav>
-      </div>
-    </header>
+    <nav className="flex items-center gap-2">
+      <Link
+        href="#about"
+        className="px-4 py-2 text-[14px] text-oaa-ink hover:bg-oaa-ink/5 rounded-sm"
+      >
+        About
+      </Link>
+      <Link
+        href="#faq"
+        className="px-4 py-2 text-[14px] text-oaa-ink hover:bg-oaa-ink/5 rounded-sm"
+      >
+        FAQ
+      </Link>
+      <SecondaryLink href="/signin">Log in</SecondaryLink>
+    </nav>
   );
 }
 
@@ -61,10 +48,8 @@ function Hero() {
     <section className="grid grid-cols-1 gap-16 pt-24 pb-32 lg:grid-cols-[minmax(0,1fr)_440px] lg:items-center lg:gap-24">
       <div className="flex flex-col gap-8">
         <div className="font-mono text-[11px] leading-[1.4] tracking-[0.08em] uppercase text-oaa-muted">
-          <span className="text-oaa-clay">ONE ASK AWAY</span>
-          <span> / </span>
           <span className="text-oaa-clay">2026</span>
-          <span> FOR MCGILL MMA · STUDENTS &amp; ALUMNI</span>
+          <span> · FOR MCGILL MMA · STUDENTS &amp; ALUMNI</span>
         </div>
 
         <DisplayHeading variant="xl">
@@ -96,7 +81,7 @@ function ScopedCard() {
   return (
     <div className="rounded-md border border-oaa-hairline bg-white p-8">
       <div className="text-center font-mono text-[11px] leading-[1.4] tracking-[0.08em] uppercase text-oaa-muted">
-        Scoped · 25 min · One ask
+        Scoped · 20 min · One ask
       </div>
       <div className="relative mt-10 flex items-center justify-between">
         <Avatar variant="student" name="Maya Chen" size="lg" />
