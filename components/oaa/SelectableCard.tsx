@@ -9,6 +9,8 @@ type Props = {
   description?: string;
   onClick?: () => void;
   className?: string;
+  children?: React.ReactNode;
+  as?: "button" | "div";
 };
 
 export function SelectableCard({
@@ -18,21 +20,20 @@ export function SelectableCard({
   description,
   onClick,
   className,
+  children,
+  as = "button",
 }: Props) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={selected}
-      className={cn(
-        "group relative w-full text-left rounded-md border p-6 transition-colors duration-150",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-oaa-clay/40",
-        selected
-          ? "bg-oaa-clay-tint-bg border-oaa-clay-tint-border"
-          : "bg-white border-oaa-hairline hover:border-oaa-ink/20",
-        className,
-      )}
-    >
+  const cls = cn(
+    "group relative w-full text-left rounded-md border p-6 transition-colors duration-150",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-oaa-clay/40",
+    selected
+      ? "bg-oaa-clay-tint-bg border-oaa-clay-tint-border"
+      : "bg-white border-oaa-hairline hover:border-oaa-ink/20",
+    className,
+  );
+
+  const inner = (
+    <>
       {typeof rank === "number" && (
         <span className="absolute top-4 right-4 inline-flex h-6 w-6 items-center justify-center rounded-full bg-oaa-clay text-white font-mono text-[11px] tracking-[0.04em]">
           {rank}
@@ -46,6 +47,22 @@ export function SelectableCard({
           {description}
         </div>
       )}
+      {children}
+    </>
+  );
+
+  if (as === "div") {
+    return <div className={cls}>{inner}</div>;
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={selected}
+      className={cls}
+    >
+      {inner}
     </button>
   );
 }
