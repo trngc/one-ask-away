@@ -15,7 +15,7 @@ Core differentiator: niche-program-specific, conversion-oriented, built around a
 - Annie (27-29, Marketing Data Scientist): too busy to give back, gets annoyed by out-of-scope asks
 
 ## Tech stack
-- Next.js 15 App Router + TypeScript + Tailwind CSS
+- Next.js 16 App Router + TypeScript + Tailwind CSS
 - shadcn/ui for base components
 - Prisma + Postgres (Supabase) for data layer
 - Anthropic API for AI features
@@ -189,3 +189,28 @@ DO NOT use shadcn for: Card, Button, Badge, Avatar, Separator. These have custom
 4. Match PDF spacing exactly, don't approximate.
 5. Use Tailwind theme tokens via `@theme`, never arbitrary color values.
 6. Never use em dashes in copy or comments.
+
+## Branding Rules
+
+The product name shown to users is always the full phrase **"One Ask Away"**. The shorthand "OAA" is internal-only.
+
+1. **User-facing UI copy uses "One Ask Away" (full name), never "OAA"**. This applies to all rendered text users can see: nav wordmarks, headlines, body copy, button labels, empty states, error messages, email templates, page titles, meta descriptions, and any other copy on screen.
+2. **"OAA" is allowed only in technical/internal contexts**: file names (`components/oaa/`), folder names, code identifiers and comments, CSS variable prefixes (`--oaa-clay`, `--oaa-bg`, etc.), Tailwind utility names (`text-oaa-clay`, `bg-oaa-bg`, etc.), and references inside this `CLAUDE.md`. The `/styleguide` route is also internal/dev-facing and may use "OAA" freely as a token catalog label.
+3. **Future screens must follow this**. If a design reference in `oaa-screens.pdf` shows "OAA" inside user-visible copy, replace it with "One Ask Away" when implementing. The PDF naming itself is internal and unaffected.
+
+## Brand Assets
+
+**Primary logo (in-app):**
+- `/public/logo.svg` — full 3-circle mark, no padding, transparent background
+- `/public/logo.png` — raster fallback for email templates only
+
+**Favicon set (browser/device):**
+- `/app/icon.svg` — modern browsers, auto-injected by Next.js
+- `/app/apple-icon.png` — iOS home screen, auto-injected by Next.js (180×180)
+- `/app/favicon.ico` — legacy browser fallback, auto-detected by Next.js (16×16 + 32×32)
+
+**Header pattern app-wide:**
+Render `/public/logo.svg` at 24px height + 8px gap + wordmark "One Ask Away" in Switzer 600 at heading-s size (16px / 600 / 0).
+
+**Color rule:**
+Logo only ever rendered in `--accent-primary` (#D17455) on light backgrounds, `--accent-on-dark` (#E89876) on inverse backgrounds. Never recolor outside these two values.
