@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { AlumnusNav } from "@/components/oaa/AlumnusNav";
 import { InboxRowFull } from "@/components/oaa/InboxRowFull";
+import { EmptyState } from "@/components/oaa/EmptyState";
 import { INBOX_REQUESTS, PENDING_REQUESTS } from "@/lib/mock-inbox";
 import { cn } from "@/lib/utils";
 import type { InboxRequest } from "@/lib/mock-inbox";
@@ -73,7 +74,10 @@ export default function InboxAllPage() {
             ))}
           </div>
         ) : (
-          <p className="text-[14px] text-oaa-muted">No requests match this filter.</p>
+          <EmptyState
+            heading="No requests match this filter."
+            subtitle="Try a different filter to see more requests."
+          />
         )}
       </main>
     </>

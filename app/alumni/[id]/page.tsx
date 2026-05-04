@@ -6,6 +6,7 @@ import { getAlumnus } from "@/lib/mock-alumni";
 import { SectionLabel } from "@/components/oaa/SectionLabel";
 import { Avatar } from "@/components/oaa/Avatar";
 import { BackHeader } from "@/components/oaa/BackHeader";
+import { ReportModal } from "@/components/oaa/ReportModal";
 import { STUDENT } from "@/lib/mock-student";
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
@@ -238,12 +239,17 @@ export default async function AlumnusDetailPage({ params }: Props) {
               </p>
 
               <div className="text-center">
-                <button
-                  type="button"
-                  className="text-[12px] text-oaa-muted underline hover:text-oaa-ink"
-                >
-                  Report this profile
-                </button>
+                <ReportModal
+                  alumniName={alumnus.name}
+                  trigger={
+                    <button
+                      type="button"
+                      className="text-[12px] text-oaa-muted underline hover:text-oaa-ink"
+                    >
+                      Report this profile
+                    </button>
+                  }
+                />
               </div>
             </div>
           </aside>

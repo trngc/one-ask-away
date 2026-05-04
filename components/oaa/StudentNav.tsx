@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Avatar } from "@/components/oaa/Avatar";
 import { STUDENT } from "@/lib/mock-student";
 
-type NavItem = "matches" | "requests" | "profile" | "none";
+type NavItem = "matches" | "requests" | "calls" | "profile" | "notifications" | "none";
 
 type Props = {
   active?: NavItem;
@@ -41,6 +41,7 @@ export function StudentNav({ active, notificationCount = 1, className }: Props) 
         <nav className="flex items-center gap-6">
           {navLink("/matches", "Matches", "matches")}
           {navLink("/requests", "Requests", "requests")}
+          {navLink("/calls", "Calls", "calls")}
           {navLink("/profile", "Profile", "profile")}
 
           {/* Notifications as text with clay dot indicator */}
@@ -49,7 +50,9 @@ export function StudentNav({ active, notificationCount = 1, className }: Props) 
               href="/notifications"
               className={cn(
                 "text-[14px] leading-none transition-colors",
-                "text-oaa-muted hover:text-oaa-ink",
+                active === "notifications"
+                  ? "font-semibold text-oaa-ink underline underline-offset-4"
+                  : "text-oaa-muted hover:text-oaa-ink",
               )}
             >
               Notifications

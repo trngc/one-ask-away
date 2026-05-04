@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { RotateCw } from "lucide-react";
+import { RotateCw, ArrowRight } from "lucide-react";
 
 import { StudentNav } from "@/components/oaa/StudentNav";
 import { SectionLabel } from "@/components/oaa/SectionLabel";
@@ -54,14 +54,46 @@ export default function MatchesPage() {
                     <p className="text-[12px] text-oaa-muted">{alumnus.city}</p>
                   </div>
                 </div>
-                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-oaa-clay font-mono text-[11px] font-semibold text-white">
-                  {alumnus.score}
-                </span>
+                {(() => {
+                  const r = 12;
+                  const c = 2 * Math.PI * r;
+                  const filled = (alumnus.score / 100) * c;
+                  const gap = c - filled;
+                  return (
+                    <svg width="28" height="28" viewBox="0 0 28 28" className="shrink-0" aria-hidden>
+                      <circle
+                        cx="14" cy="14" r={r}
+                        fill="none"
+                        stroke="var(--oaa-hairline)"
+                        strokeWidth="2"
+                      />
+                      <circle
+                        cx="14" cy="14" r={r}
+                        fill="none"
+                        stroke="var(--oaa-clay)"
+                        strokeWidth="2"
+                        strokeDasharray={`${filled} ${gap}`}
+                        strokeLinecap="round"
+                        transform="rotate(-90 14 14)"
+                      />
+                      <text
+                        x="14" y="14"
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fill="var(--oaa-clay)"
+                        fontSize="11"
+                        fontWeight="500"
+                      >
+                        {alumnus.score}
+                      </text>
+                    </svg>
+                  );
+                })()}
               </div>
 
               {/* Short bio quote */}
-              <p className="mb-5 text-[13px] leading-[1.5] text-oaa-ink italic border-l-2 border-oaa-hairline pl-3">
-                "{alumnus.shortBio}"
+              <p className="mb-5 text-[13px] leading-[1.5] text-oaa-ink border-l-2 border-oaa-hairline pl-3">
+                &#x201C;{alumnus.shortBio}&#x201D;
               </p>
 
               {/* Helps with */}
@@ -91,7 +123,7 @@ export default function MatchesPage() {
                     {alumnus.nonOfferings.map((n) => (
                       <span
                         key={n.id}
-                        className="rounded-xs border border-oaa-hairline bg-white px-2 py-0.5 text-[12px] text-oaa-muted line-through"
+                        className="rounded-xs border border-oaa-hairline bg-white px-2 py-0.5 text-[12px] text-oaa-muted"
                       >
                         {n.title}
                       </span>
@@ -102,27 +134,24 @@ export default function MatchesPage() {
 
               {/* Footer */}
               <div className="mt-auto flex items-center justify-between pt-4 border-t border-oaa-hairline">
-                <span
-                  className={`text-[12px] flex items-center gap-1.5 ${
-                    alumnus.availabilityLevel === "Limited availability"
-                      ? "text-oaa-clay"
-                      : "text-oaa-muted"
-                  }`}
-                >
+                <span className="flex items-center gap-1.5 text-[12px] text-oaa-muted">
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
-                      alumnus.availabilityLevel === "Limited availability"
-                        ? "bg-oaa-clay"
-                        : "bg-oaa-status-accepted-dot"
+                      alumnus.availabilityLevel === "Available this week"
+                        ? "bg-oaa-status-accepted-dot"
+                        : alumnus.availabilityLevel === "Available next week"
+                        ? "bg-oaa-status-completed-dot"
+                        : "bg-oaa-clay"
                     }`}
                   />
                   {alumnus.availabilityLevel}
                 </span>
                 <Link
                   href={`/alumni/${alumnus.id}`}
-                  className="flex items-center gap-1 text-[13px] text-oaa-clay hover:underline"
+                  className="flex items-center gap-1 text-[13px] font-medium text-oaa-ink hover:text-oaa-ink/80"
                 >
-                  View profile →
+                  View profile
+                  <ArrowRight className="h-3.5 w-3.5 text-oaa-muted" strokeWidth={1.5} aria-hidden />
                 </Link>
               </div>
             </div>

@@ -31,6 +31,10 @@ export type MockRequest = {
   meetingLink?: string;
   alumniNote?: string;
   worthConsideringId?: string;
+  platform?: string;
+  callState?: "live" | "tomorrow" | "soon";
+  callTimeDisplay?: string;
+  callStatusLabel?: string;
 };
 
 // Maya Chen — the logged-in student for Section 04 flows
@@ -153,6 +157,56 @@ export const MOCK_REQUESTS: MockRequest[] = [
     confirmedMeta: "15 min · virtual call with Adam",
     meetingLink: "shopify.zoom.us/j/87234...",
     alumniNote: "Looking forward — feel free to share what you'd like to focus on beforehand.",
+    platform: "Zoom",
+    callState: "live",
+    callTimeDisplay: "TODAY · 1:00 PM EDT (10:00 AM PDT)",
+    callStatusLabel: "Live now",
+  },
+  {
+    id: "req-lena-call",
+    alumniId: "lena-park",
+    alumniName: "Lena Park",
+    alumniRole: "Senior PM",
+    alumniCompany: "Wealthsimple",
+    alumniInitials: "LP",
+    topic: "Resume review",
+    status: "accepted",
+    statusMeta: "Accepted yesterday",
+    opener:
+      "Hi Lena — I'm a current MMA student pivoting toward product analytics. Could we spend 15 minutes going through my resume?",
+    question: "What makes a strong resume for a PM analytics role at a fintech company?",
+    proposedTimes: ["Sat May 2 · 3pm", "Sun May 3 · 11am"],
+    sentAgo: "Accepted yesterday",
+    confirmedTime: "Saturday May 2 · 3:00 PM EDT",
+    confirmedMeta: "15 min · virtual call with Lena",
+    meetingLink: "meet.google.com/abc-defg-hij",
+    platform: "Google Meet",
+    callState: "tomorrow",
+    callTimeDisplay: "SAT MAY 2 · 3:00 PM EDT",
+    callStatusLabel: "Tomorrow",
+  },
+  {
+    id: "req-sarah-upcoming",
+    alumniId: "sarah-reyes",
+    alumniName: "Sarah Reyes",
+    alumniRole: "Sr Analyst",
+    alumniCompany: "RBC",
+    alumniInitials: "SR",
+    topic: "Behavioral interview",
+    status: "accepted",
+    statusMeta: "Accepted 2 days ago",
+    opener:
+      "Hi Sarah — I'd love another session to go deeper on behavioral interview prep before my RBC interview.",
+    question: "What behavioral questions come up most in RBC analyst interviews?",
+    proposedTimes: ["Mon May 4 · 2pm", "Tue May 5 · 4pm"],
+    sentAgo: "Accepted 2 days ago",
+    confirmedTime: "Monday May 4 · 2:00 PM EDT",
+    confirmedMeta: "15 min · virtual call with Sarah",
+    meetingLink: "teams.microsoft.com/l/meetup/...",
+    platform: "Teams",
+    callState: "soon",
+    callTimeDisplay: "MON MAY 4 · 2:00 PM EDT",
+    callStatusLabel: "In 3 days",
   },
   {
     id: "req-lena",
