@@ -5,7 +5,7 @@ import { Avatar } from "@/components/oaa/Avatar";
 
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
 import { Header } from "@/components/oaa/Header";
-import { GhostButton } from "@/components/oaa/buttons";
+import { GhostButton, PrimaryLink } from "@/components/oaa/buttons";
 import { Switch } from "@/components/ui/switch";
 
 const ASPIRATIONS = [
@@ -108,8 +108,24 @@ export default function ProfilePage() {
           </ProfileCard>
         </div>
 
+        {/* Matches CTA */}
+        <section className="mt-6 rounded-md border border-oaa-hairline bg-white px-8 py-6">
+          <p className="mb-2 font-mono text-[11px] tracking-[0.08em] uppercase text-oaa-clay">
+            Your matches are ready
+          </p>
+          <h2 className="mb-1 text-[20px] font-semibold text-oaa-ink">
+            Three alumni match your goals this week.
+          </h2>
+          <p className="mb-5 text-[14px] text-oaa-muted">
+            We picked them based on your top aspiration and what you need help with.
+          </p>
+          <PrimaryLink href="/matches/loading" trailingArrow>
+            Find my alumni matches
+          </PrimaryLink>
+        </section>
+
         {/* Pause toggle */}
-        <section className="mt-12 flex items-start justify-between gap-6 rounded-md border border-oaa-hairline bg-white p-6">
+        <section className="mt-6 flex items-start justify-between gap-6 rounded-md border border-oaa-hairline bg-white p-6">
           <div className="flex flex-col gap-1">
             <h3 className="text-[15px] leading-[1.5] font-semibold text-oaa-ink">
               Pause my profile from matching

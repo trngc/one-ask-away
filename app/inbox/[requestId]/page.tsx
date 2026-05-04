@@ -3,6 +3,7 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { Avatar } from "@/components/oaa/Avatar";
 import { BackHeader } from "@/components/oaa/BackHeader";
@@ -19,6 +20,7 @@ export default function InboxRequestDetailPage({ params }: Props) {
 
   const [acceptDefaultTimeId, setAcceptDefaultTimeId] = useState<string | undefined>();
 
+  const router = useRouter();
   const isPending = req.status === "pending";
   const student = req.student;
   const firstName = student.firstName;
@@ -236,12 +238,21 @@ export default function InboxRequestDetailPage({ params }: Props) {
               <span className="font-medium">Accepted</span> ·{" "}
               <span className="text-oaa-muted">{req.scheduledTime}</span>
             </p>
-            <Link
-              href="/inbox"
-              className="text-[13px] text-oaa-muted underline underline-offset-2 transition-colors hover:text-oaa-ink"
-            >
-              Back to inbox
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/inbox"
+                className="text-[13px] text-oaa-muted underline underline-offset-2 transition-colors hover:text-oaa-ink"
+              >
+                Back to inbox
+              </Link>
+              <button
+                type="button"
+                onClick={() => router.push(`/post-call-notes/${requestId}`)}
+                className="rounded-sm bg-oaa-ink px-5 py-2.5 text-[14px] font-medium leading-none text-white transition-colors hover:bg-oaa-ink/90"
+              >
+                Mark call as complete
+              </button>
+            </div>
           </div>
         </div>
       )}

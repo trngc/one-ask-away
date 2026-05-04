@@ -41,12 +41,13 @@ export const INBOX_REQUESTS: InboxRequest[] = [
     question: "How did you decide which roles to apply to during your transition?",
     proposedTimes: [
       { id: "t1", date: "TUE APR 28", time: "5:00 — 5:15 PM EDT", altTz: "(2:00 PM PDT)" },
-      { id: "t2", date: "FRI MAY 1",  time: "1:00 — 1:15 PM EDT", altTz: "(10:00 AM PDT)" },
+      { id: "t2", date: "FRI MAY 8",  time: "5:00 — 5:15 PM EDT", altTz: "(2:00 PM PDT)" },
     ],
-    status: "pending",
+    status: "accepted",
     scopeStatus: "within-scope",
-    receivedAt: "2h ago",
-    dueInHours: 12,
+    receivedAt: "3 days ago",
+    dueInHours: 0,
+    scheduledTime: "FRI MAY 8 · 5:00 PM EDT",
   },
   {
     id: "inbox-jordan",

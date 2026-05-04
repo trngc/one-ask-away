@@ -8,6 +8,7 @@ import { BackHeader } from "@/components/oaa/BackHeader";
 import { StatusPill } from "@/components/oaa/StatusPill";
 import { Avatar } from "@/components/oaa/Avatar";
 import { PrimaryLink } from "@/components/oaa/buttons";
+import { MarkCompleteSection } from "@/components/oaa/MarkCompleteSection";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -264,6 +265,12 @@ export default async function RequestDetailPage({ params }: Props) {
                 </p>
               </div>
             )}
+
+            {/* Mark complete */}
+            <MarkCompleteSection
+              requestId={id}
+              alumniName={req.alumniName}
+            />
           </div>
         )}
 

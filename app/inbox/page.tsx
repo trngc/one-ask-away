@@ -76,8 +76,24 @@ export default function AlumnusInboxHome() {
           </section>
         )}
 
+        {/* Past students shortcut */}
+        <div className="mt-12 rounded-md border border-oaa-hairline bg-white px-5 py-4 flex items-center justify-between gap-4">
+          <div>
+            <p className="text-[14px] font-medium text-oaa-ink">Past students</p>
+            <p className="text-[13px] text-oaa-muted">
+              Your post-call notes and reflections.
+            </p>
+          </div>
+          <Link
+            href="/past-students"
+            className="shrink-0 text-[13px] text-oaa-clay underline underline-offset-2 transition-colors hover:text-oaa-clay/80"
+          >
+            View all →
+          </Link>
+        </div>
+
         {/* Low-availability nudge */}
-        <div className="mt-12 rounded-md border border-oaa-hairline bg-white px-5 py-4">
+        <div className="mt-4 rounded-md border border-oaa-hairline bg-white px-5 py-4">
           <p className="text-[14px] text-oaa-muted">
             You have{" "}
             <span className="font-medium text-oaa-ink">6 slots open</span> this

@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import { StudentNav } from "@/components/oaa/StudentNav";
 import { Avatar } from "@/components/oaa/Avatar";
+import { ContactAgainSection } from "@/components/oaa/ContactAgainSection";
 import { STUDENT, MOCK_REQUESTS } from "@/lib/mock-student";
 import { TOP_3 } from "@/lib/mock-alumni";
 
@@ -161,16 +162,7 @@ export default function StudentHomePage() {
             ))}
           </div>
 
-          {/* Bug 9 — Contact again (coming soon placeholder) */}
-          <div className="mt-4 rounded-md border border-dashed border-oaa-hairline bg-white px-6 py-5">
-            <p className="mb-1 font-mono text-[11px] tracking-[0.08em] uppercase text-oaa-muted">
-              Coming soon
-            </p>
-            <h3 className="text-[20px] font-semibold text-oaa-ink">Contact again</h3>
-            <p className="mt-1 text-[14px] text-oaa-muted">
-              After your first call, alumni you've talked to will live here.
-            </p>
-          </div>
+          <ContactAgainSection />
         </section>
       </main>
     </div>
