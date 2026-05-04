@@ -164,6 +164,10 @@ Scale (size / line-height / tracking):
 - Page header pattern: section label → display heading → body L description, 24px gaps between
 - Selectable cards: white bg default; clay-tint bg + clay-tint border when selected; optional numbered clay badge for ranked
 - Status pills: small rounded, light bg, colored dot prefix
+- **Surface treatments — three distinct tiers:**
+  - `ClayHighlightCard` (`components/oaa/ClayHighlightCard.tsx`): white bg + 1px full clay border (`--oaa-clay`). Signals "highlighted / imminent / active-accent" for standalone card containers. Current usages: `LiveCallBanner`, `UpcomingCallCard` isImminent branch. Rule: use this when a whole card needs to stand out as urgent or time-sensitive. NOT for selection-within-group (that's peach-tint). NOT for primary CTAs (that's filled ink).
+  - Peach-tint surface (`bg-oaa-clay-tint-bg border-oaa-clay-tint-border`): selection state inside a group (radio rows, selectable onboarding cards, offering cards), or a soft callout/info block (alumni note, "Worth considering"). Never for standalone alert cards.
+  - Regular card (`bg-white border-oaa-hairline`): default neutral surface for all non-highlighted cards.
 - Avatars: circle, mono initials; 3 variants, role-based:
   - `variant="student"` — every student avatar everywhere. Peach: `--oaa-clay-tint-bg` + clay text.
   - `variant="alumnus"` — every alumnus avatar in cards, rows, listings, hero. Warm grey: `--oaa-avatar-alumnus-bg` + ink text.

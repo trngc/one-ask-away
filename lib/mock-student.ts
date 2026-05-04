@@ -1,11 +1,13 @@
-export type MockStudent = {
+export type Student = {
   name: string;
   firstName: string;
   avatarInitials: string;
   cohort: string;
+  program: string;
   primaryAspiration: string;
   aspirations: string[];
-  program: string;
+  helpNeeds: string[];
+  background: { institution: string; role: string }[];
 };
 
 export type MockRequest = {
@@ -31,15 +33,105 @@ export type MockRequest = {
   worthConsideringId?: string;
 };
 
-export const STUDENT: MockStudent = {
+// Maya Chen — the logged-in student for Section 04 flows
+export const STUDENT: Student = {
   name: "Maya Chen",
   firstName: "Maya",
   avatarInitials: "MC",
   cohort: "MMA '26",
+  program: "MMA",
   primaryAspiration: "Data Analyst",
   aspirations: ["Data Analyst", "Product Analyst", "Marketing Data Scientist"],
-  program: "MMA",
+  helpNeeds: ["Portfolio review", "Resume review", "Behavioral interview"],
+  background: [
+    { institution: "McGill", role: "Master of Mgmt in Analytics" },
+    { institution: "Lululemon", role: "Marketing analyst intern" },
+  ],
 };
+
+const JORDAN_LIU: Student = {
+  name: "Jordan Liu",
+  firstName: "Jordan",
+  avatarInitials: "JL",
+  cohort: "MMA '26",
+  program: "MMA",
+  primaryAspiration: "Product Analyst",
+  aspirations: ["Product Analyst", "Growth Analyst", "Data Analyst"],
+  helpNeeds: ["Portfolio review", "Resume review", "Case interview"],
+  background: [
+    { institution: "McGill", role: "Master of Mgmt in Analytics" },
+    { institution: "Deloitte", role: "Business analyst intern" },
+  ],
+};
+
+const PRIYA_NAIR: Student = {
+  name: "Priya Nair",
+  firstName: "Priya",
+  avatarInitials: "PN",
+  cohort: "MMA '26",
+  program: "MMA",
+  primaryAspiration: "Data Scientist",
+  aspirations: ["Data Scientist", "ML Engineer", "Product Analyst"],
+  helpNeeds: ["Data case interview", "Technical interview", "Resume review"],
+  background: [
+    { institution: "McGill", role: "Master of Mgmt in Analytics" },
+    { institution: "TD Bank", role: "Data science co-op" },
+  ],
+};
+
+const SAM_PATEL: Student = {
+  name: "Sam Patel",
+  firstName: "Sam",
+  avatarInitials: "SP",
+  cohort: "MMA '26",
+  program: "MMA",
+  primaryAspiration: "Financial Analyst",
+  aspirations: ["Financial Analyst", "Data Analyst", "Strategy Analyst"],
+  helpNeeds: ["Behavioral interview", "Resume review", "Industry insights"],
+  background: [
+    { institution: "McGill", role: "Master of Mgmt in Analytics" },
+    { institution: "KPMG", role: "Advisory intern" },
+  ],
+};
+
+const ANIK_BHATT: Student = {
+  name: "Anik Bhatt",
+  firstName: "Anik",
+  avatarInitials: "AB",
+  cohort: "MMA '26",
+  program: "MMA",
+  primaryAspiration: "Strategy Consultant",
+  aspirations: ["Strategy Consultant", "Product Manager", "Data Analyst"],
+  helpNeeds: ["Career pivot advice", "Case interview", "Networking tips"],
+  background: [
+    { institution: "McGill", role: "Master of Mgmt in Analytics" },
+    { institution: "BCG", role: "Research associate intern" },
+  ],
+};
+
+const LILY_OSEI: Student = {
+  name: "Lily Osei",
+  firstName: "Lily",
+  avatarInitials: "LO",
+  cohort: "MMA '25",
+  program: "MMA",
+  primaryAspiration: "Marketing Analyst",
+  aspirations: ["Marketing Analyst", "Brand Strategist", "Data Analyst"],
+  helpNeeds: ["Career pivot advice", "Portfolio review", "Resume review"],
+  background: [
+    { institution: "McGill", role: "Master of Mgmt in Analytics" },
+    { institution: "L'Oreal", role: "Marketing data intern" },
+  ],
+};
+
+export const STUDENTS: Student[] = [
+  STUDENT,
+  JORDAN_LIU,
+  PRIYA_NAIR,
+  SAM_PATEL,
+  ANIK_BHATT,
+  LILY_OSEI,
+];
 
 export const MOCK_REQUESTS: MockRequest[] = [
   {

@@ -1,11 +1,9 @@
-import Link from "next/link";
 import { Check, Pencil, X } from "lucide-react";
 
+import { AlumnusNav } from "@/components/oaa/AlumnusNav";
 import { Avatar } from "@/components/oaa/Avatar";
-
 import { CompactWeekGrid } from "@/components/oaa/CompactWeekGrid";
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
-import { Header } from "@/components/oaa/Header";
 import { GhostButton } from "@/components/oaa/buttons";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
@@ -49,7 +47,7 @@ const WEEK_ENTRIES = [
 export default function AlumnusProfilePage() {
   return (
     <>
-      <Header rightContent={<AlumnusNav />} />
+      <AlumnusNav active="profile" />
 
       <main className="mx-auto max-w-[1200px] px-8 pb-32">
         {/* Hero */}
@@ -185,30 +183,6 @@ export default function AlumnusProfilePage() {
   );
 }
 
-function AlumnusNav() {
-  return (
-    <nav className="flex items-center gap-2">
-      <Link
-        href="/inbox"
-        className="rounded-sm px-4 py-2 text-[14px] text-oaa-ink hover:bg-oaa-ink/5"
-      >
-        Inbox
-      </Link>
-      <Link
-        href="/recommendations"
-        className="rounded-sm px-4 py-2 text-[14px] text-oaa-ink hover:bg-oaa-ink/5"
-      >
-        Recommendations
-      </Link>
-      <Link
-        href="/profile/alumnus"
-        className="rounded-sm px-4 py-2 text-[14px] text-oaa-ink underline underline-offset-2"
-      >
-        Profile
-      </Link>
-    </nav>
-  );
-}
 
 function ProfileCard({
   number,

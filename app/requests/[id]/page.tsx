@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { ArrowLeft, Clock, Copy, CalendarPlus } from "lucide-react";
+import { Clock, Copy, CalendarPlus } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { MOCK_REQUESTS, STUDENT } from "@/lib/mock-student";
 import { getAlumnus } from "@/lib/mock-alumni";
+import { BackHeader } from "@/components/oaa/BackHeader";
 import { StatusPill } from "@/components/oaa/StatusPill";
 import { Avatar } from "@/components/oaa/Avatar";
 import { PrimaryLink } from "@/components/oaa/buttons";
@@ -35,19 +36,11 @@ export default async function RequestDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-oaa-bg">
-      {/* Minimal top bar */}
-      <header className="border-b border-oaa-hairline bg-white">
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-8 py-4">
-          <Link
-            href="/requests"
-            className="flex items-center gap-1.5 text-[13px] text-oaa-muted hover:text-oaa-ink transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" strokeWidth={1.5} aria-hidden />
-            Back to my requests
-          </Link>
-          <Avatar variant="student" name={STUDENT.name} size="sm" />
-        </div>
-      </header>
+      <BackHeader
+        backHref="/requests"
+        backLabel="Back to my requests"
+        rightContent={<Avatar variant="student" name={STUDENT.name} size="sm" />}
+      />
 
       <main className="mx-auto max-w-[1200px] px-8 py-8">
         {/* Status bar */}
@@ -309,8 +302,8 @@ export default async function RequestDetailPage({ params }: Props) {
 
             {/* Worth considering */}
             {worthConsidering && (
-              <div className="rounded-md border border-oaa-hairline bg-white px-6 py-5">
-                <p className="mb-4 font-mono text-[11px] tracking-[0.08em] uppercase text-oaa-muted">
+              <div className="rounded-md border border-[color:var(--oaa-clay-tint-border)] bg-[color:var(--oaa-clay-tint-bg)] px-6 py-5">
+                <p className="mb-4 font-mono text-[11px] tracking-[0.08em] uppercase text-oaa-clay">
                   Worth considering
                 </p>
                 <div className="flex items-start justify-between gap-4">

@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, RotateCw, Check, Pencil } from "lucide-react";
+import { RotateCw, Check, Pencil } from "lucide-react";
 import { use, useState } from "react";
 
 import { getAlumnus } from "@/lib/mock-alumni";
 import { STUDENT } from "@/lib/mock-student";
 import { Avatar } from "@/components/oaa/Avatar";
+import { BackHeader } from "@/components/oaa/BackHeader";
 import { PrimaryButton } from "@/components/oaa/buttons";
 
 const SAMPLE_OPENER =
@@ -54,19 +55,11 @@ export default function AskComposerPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-oaa-bg">
-      {/* Minimal header */}
-      <header className="border-b border-oaa-hairline bg-white">
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-8 py-4">
-          <Link
-            href={`/alumni/${alumniId}`}
-            className="flex items-center gap-1.5 text-[13px] text-oaa-muted hover:text-oaa-ink transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" strokeWidth={1.5} aria-hidden />
-            Back to {firstName}'s profile
-          </Link>
-          <Avatar variant="student" name={STUDENT.name} size="sm" />
-        </div>
-      </header>
+      <BackHeader
+        backHref={`/alumni/${alumniId}`}
+        backLabel={`Back to ${firstName}'s profile`}
+        rightContent={<Avatar variant="student" name={STUDENT.name} size="sm" />}
+      />
 
       <main className="mx-auto max-w-[720px] px-8 py-12">
         {/* Page heading */}

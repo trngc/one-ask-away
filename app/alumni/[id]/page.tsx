@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { ArrowLeft, Check, X, ExternalLink } from "lucide-react";
+import { Check, X, ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { getAlumnus } from "@/lib/mock-alumni";
 import { SectionLabel } from "@/components/oaa/SectionLabel";
 import { Avatar } from "@/components/oaa/Avatar";
+import { BackHeader } from "@/components/oaa/BackHeader";
 import { STUDENT } from "@/lib/mock-student";
 
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
@@ -18,24 +19,18 @@ export default async function AlumnusDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-oaa-bg">
-      {/* Minimal top bar */}
-      <header className="border-b border-oaa-hairline bg-white">
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-8 py-4">
-          <Link
-            href="/matches"
-            className="flex items-center gap-1.5 text-[13px] text-oaa-muted hover:text-oaa-ink transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" strokeWidth={1.5} aria-hidden />
-            Back to matches
-          </Link>
+      <BackHeader
+        backHref="/matches"
+        backLabel="Back to matches"
+        rightContent={
           <div className="flex items-center gap-4">
             <Link href="/requests" className="text-[14px] text-oaa-muted hover:text-oaa-ink">
               Inbox
             </Link>
             <Avatar variant="student" name={STUDENT.name} size="sm" />
           </div>
-        </div>
-      </header>
+        }
+      />
 
       <main className="mx-auto max-w-[1200px] px-8 py-10">
         <div className="flex gap-10">
