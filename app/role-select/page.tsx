@@ -58,7 +58,9 @@ export default function RoleSelectPage() {
         {tracks.map((t) => (
           <Link
             key={t.key}
-            href="/signin"
+            href={
+              t.key === "alumnus" ? "/onboarding/alumnus/background" : "/signin"
+            }
             className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-oaa-clay/40 rounded-md"
           >
             <SelectableCard
