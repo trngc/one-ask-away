@@ -8,40 +8,23 @@ type Props = {
   className?: string;
 };
 
-const styles: Record<Variant, { bg: string; dot: string }> = {
-  pending: {
-    bg: "bg-oaa-status-pending-bg",
-    dot: "bg-oaa-status-pending-dot",
-  },
-  accepted: {
-    bg: "bg-oaa-status-accepted-bg",
-    dot: "bg-oaa-status-accepted-dot",
-  },
-  declined: {
-    bg: "bg-oaa-status-declined-bg",
-    dot: "bg-oaa-status-declined-dot",
-  },
-  completed: {
-    bg: "bg-oaa-status-completed-bg",
-    dot: "bg-oaa-status-completed-dot",
-  },
-  live: {
-    bg: "bg-oaa-status-live-bg",
-    dot: "bg-oaa-status-live-dot",
-  },
+const DOT: Record<Variant, string> = {
+  pending:   "bg-oaa-muted",
+  accepted:  "bg-oaa-status-accepted-dot",
+  declined:  "bg-oaa-status-declined-dot",
+  completed: "bg-oaa-status-completed-dot",
+  live:      "bg-oaa-status-live-dot",
 };
 
 export function StatusPill({ variant, children, className }: Props) {
-  const s = styles[variant];
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] leading-none font-medium text-oaa-ink",
-        s.bg,
+        "inline-flex items-center gap-1.5 rounded-full border border-oaa-hairline bg-white px-2.5 py-1 text-[12px] leading-none font-medium text-oaa-ink",
         className,
       )}
     >
-      <span className={cn("h-1.5 w-1.5 rounded-full", s.dot)} aria-hidden />
+      <span className={cn("h-1.5 w-1.5 rounded-full", DOT[variant])} aria-hidden />
       {children}
     </span>
   );

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Check, Pencil, X } from "lucide-react";
 
+import { Avatar } from "@/components/oaa/Avatar";
+
 import { CompactWeekGrid } from "@/components/oaa/CompactWeekGrid";
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
 import { Header } from "@/components/oaa/Header";
@@ -53,12 +55,7 @@ export default function AlumnusProfilePage() {
         {/* Hero */}
         <section className="flex flex-col gap-8 pt-16 md:flex-row md:items-start md:justify-between">
           <div className="flex items-start gap-6">
-            <span
-              aria-label="Adam Farouk"
-              className="inline-flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-oaa-ink font-mono text-[22px] tracking-[0.04em] text-white"
-            >
-              AF
-            </span>
+            <Avatar variant="alumnus-self" name="Adam Farouk" className="h-20 w-20 shrink-0 text-[22px]" />
             <div className="flex flex-col gap-3 pt-1">
               <span className="font-mono text-[11px] leading-[1.4] tracking-[0.08em] uppercase text-oaa-muted">
                 Alumnus · MMA &rsquo;19

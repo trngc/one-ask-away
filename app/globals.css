@@ -12,6 +12,7 @@
   --oaa-hairline: #E8E6DF;
   --oaa-clay-tint-bg: color-mix(in srgb, #D17455 12%, transparent);
   --oaa-clay-tint-border: color-mix(in srgb, #D17455 40%, transparent);
+  --oaa-avatar-alumnus-bg: #ECEAE2;
 
   /* OAA status palette (for StatusPill) */
   --oaa-status-pending-bg: #F3EFE6;
@@ -55,6 +56,7 @@
   --color-oaa-hairline: var(--oaa-hairline);
   --color-oaa-clay-tint-bg: var(--oaa-clay-tint-bg);
   --color-oaa-clay-tint-border: var(--oaa-clay-tint-border);
+  --color-oaa-avatar-alumnus-bg: var(--oaa-avatar-alumnus-bg);
 
   --color-oaa-status-pending-bg: var(--oaa-status-pending-bg);
   --color-oaa-status-pending-dot: var(--oaa-status-pending-dot);

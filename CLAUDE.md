@@ -138,6 +138,7 @@ Defined as CSS variables in `app/globals.css`:
 - `--oaa-hairline: #E8E6DF` — dividers, card borders
 - `--oaa-clay-tint-bg: color-mix(in srgb, #D17455 12%, transparent)`
 - `--oaa-clay-tint-border: color-mix(in srgb, #D17455 40%, transparent)`
+- `--oaa-avatar-alumnus-bg: #ECEAE2` — soft warm grey for alumnus avatars in cards/rows/hero; sits between page bg (#F8F7F2) and hairline (#E8E6DF)
 
 ### Typography
 - Sans: Switzer (loaded via Fontshare CDN `<link>` in `app/layout.tsx`)
@@ -163,7 +164,12 @@ Scale (size / line-height / tracking):
 - Page header pattern: section label → display heading → body L description, 24px gaps between
 - Selectable cards: white bg default; clay-tint bg + clay-tint border when selected; optional numbered clay badge for ranked
 - Status pills: small rounded, light bg, colored dot prefix
-- Avatars: circle, mono initials; clay bg for students, ink bg for alumni
+- Avatars: circle, mono initials; 3 variants, role-based:
+  - `variant="student"` — every student avatar everywhere. Peach: `--oaa-clay-tint-bg` + clay text.
+  - `variant="alumnus"` — every alumnus avatar in cards, rows, listings, hero. Warm grey: `--oaa-avatar-alumnus-bg` + ink text.
+  - `variant="alumnus-self"` — ONLY the alumnus's own avatar in their top-right nav and profile body. Pitch black: `--oaa-ink` + white.
+  - No default — every call site must specify the variant explicitly.
+  - Mental model: students always warm/peach. Alumni always muted/grey. Pitch black is the single signal an alumnus uses to recognize "this is me."
 - Primary CTA: ink bg, white text, optional arrow suffix
 - Secondary CTA: white bg, hairline border, ink text
 - Empty states: sentence-cased, end in period, no exclamations

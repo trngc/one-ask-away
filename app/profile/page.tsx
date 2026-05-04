@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Pencil } from "lucide-react";
 
+import { Avatar } from "@/components/oaa/Avatar";
+
 import { DisplayHeading } from "@/components/oaa/DisplayHeading";
 import { Header } from "@/components/oaa/Header";
 import { GhostButton } from "@/components/oaa/buttons";
@@ -30,12 +32,7 @@ export default function ProfilePage() {
         {/* Hero */}
         <section className="flex flex-col gap-8 pt-16 md:flex-row md:items-start md:justify-between">
           <div className="flex items-start gap-6">
-            <span
-              aria-label="Maya Chen"
-              className="inline-flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-[#FBE5DA] font-mono text-[22px] tracking-[0.04em] text-oaa-clay"
-            >
-              MC
-            </span>
+            <Avatar variant="student" name="Maya Chen" className="h-20 w-20 shrink-0 text-[22px]" />
             <div className="flex flex-col gap-3 pt-1">
               <span className="font-mono text-[11px] leading-[1.4] tracking-[0.08em] uppercase text-oaa-muted">
                 Student · MMA &rsquo;26

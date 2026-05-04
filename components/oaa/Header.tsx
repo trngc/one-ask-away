@@ -11,7 +11,7 @@ export function Header({ rightContent, className }: Props) {
   return (
     <header
       className={cn(
-        "border-b border-oaa-hairline bg-oaa-bg",
+        "bg-oaa-bg",
         className,
       )}
     >
