@@ -81,7 +81,7 @@ export default function AskComposerPage({ params }: Props) {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <label className="text-[13px] font-semibold text-oaa-ink">
-                  Your opener
+                  Your opening ask
                 </label>
                 <div className="flex items-center gap-3">
                   <span className="rounded-xs bg-oaa-clay-tint-bg px-2 py-0.5 font-mono text-[10px] tracking-[0.06em] uppercase text-oaa-clay">

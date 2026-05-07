@@ -312,25 +312,7 @@ export default function BackgroundPage() {
           <span className="font-mono text-[11px] leading-[1.4] tracking-[0.08em] uppercase text-oaa-muted">
             Skills · up to {MAX_SKILLS}
           </span>
-          <div className="flex flex-wrap gap-2">
-            {skills.map((s) => (
-              <span
-                key={s}
-                className="inline-flex items-center gap-2 rounded-md border border-oaa-clay-tint-border bg-oaa-clay-tint-bg px-3 py-1.5 text-[13px] leading-[1.45] text-oaa-ink"
-              >
-                {s}
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSkills((arr) => arr.filter((x) => x !== s))
-                  }
-                  aria-label={`Remove ${s}`}
-                  className="text-oaa-muted hover:text-oaa-ink"
-                >
-                  <X className="h-3 w-3" strokeWidth={1.5} aria-hidden />
-                </button>
-              </span>
-            ))}
+          <div className="flex flex-col gap-3">
             <input
               value={skillDraft}
               onChange={(e) => setSkillDraft(e.target.value)}
@@ -343,8 +325,30 @@ export default function BackgroundPage() {
               onBlur={addSkillFromDraft}
               placeholder="Type to add — e.g. dbt, Snowflake"
               disabled={skills.length >= MAX_SKILLS}
-              className="min-w-[200px] flex-1 rounded-sm border border-oaa-hairline bg-white px-3 py-1.5 text-[13px] leading-[1.45] text-oaa-ink placeholder:text-oaa-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-oaa-clay/40 disabled:opacity-50"
+              className="w-full rounded-sm border border-oaa-hairline bg-white px-3 py-1.5 text-[13px] leading-[1.45] text-oaa-ink placeholder:text-oaa-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-oaa-clay/40 disabled:opacity-50"
             />
+            {skills.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {skills.map((s) => (
+                  <span
+                    key={s}
+                    className="inline-flex items-center gap-2 rounded-md border border-oaa-clay-tint-border bg-oaa-clay-tint-bg px-3 py-1.5 text-[13px] leading-[1.45] text-oaa-ink"
+                  >
+                    {s}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSkills((arr) => arr.filter((x) => x !== s))
+                      }
+                      aria-label={`Remove ${s}`}
+                      className="text-oaa-muted hover:text-oaa-ink"
+                    >
+                      <X className="h-3 w-3" strokeWidth={1.5} aria-hidden />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

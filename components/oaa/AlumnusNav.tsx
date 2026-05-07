@@ -4,7 +4,7 @@ import { Avatar } from "@/components/oaa/Avatar";
 import { Header } from "@/components/oaa/Header";
 import { cn } from "@/lib/utils";
 
-type ActivePage = "inbox" | "recommendations" | "profile";
+type ActivePage = "inbox" | "past-students" | "profile";
 
 type Props = {
   active?: ActivePage;
@@ -13,7 +13,7 @@ type Props = {
 
 const LINKS: { href: string; label: string; key: ActivePage }[] = [
   { href: "/inbox", label: "Inbox", key: "inbox" },
-  { href: "/recommendations", label: "Recommendations", key: "recommendations" },
+  { href: "/past-students", label: "Past Students", key: "past-students" },
   { href: "/profile/alumnus", label: "Profile", key: "profile" },
 ];
 

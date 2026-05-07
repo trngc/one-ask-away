@@ -71,8 +71,8 @@ export const ALUMNI: AlumnusProfile[] = [
       { id: "data-case", title: "Data case", description: "Mock or prep for analytics/data case rounds." },
     ],
     nonOfferings: [
-      { id: "job-referral", title: "Job referral", reason: "Won't refer — it's about team-fit politics, not yours." },
-      { id: "salary-negotiation", title: "Salary negotiation", reason: "Not his area of strength." },
+      { id: "job-referral", title: "Job referral", reason: "" },
+      { id: "salary-negotiation", title: "Salary negotiation", reason: "" },
     ],
     nonOfferingsQuote: "I can't refer anyone outside my immediate team. Happy to talk pivot stories instead.",
     availabilityDays: ["Tue", "Fri"],

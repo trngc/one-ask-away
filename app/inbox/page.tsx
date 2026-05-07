@@ -43,7 +43,7 @@ export default function AlumnusInboxHome() {
             </div>
             <Link
               href="/inbox/all"
-              className="text-[13px] text-oaa-muted transition-colors hover:text-oaa-ink"
+              className="text-[14px] font-medium text-oaa-ink transition-colors hover:text-oaa-ink/70"
             >
               View all →
             </Link>
@@ -86,7 +86,7 @@ export default function AlumnusInboxHome() {
           </div>
           <Link
             href="/past-students"
-            className="shrink-0 text-[13px] text-oaa-clay underline underline-offset-2 transition-colors hover:text-oaa-clay/80"
+            className="shrink-0 text-[14px] font-medium text-oaa-ink transition-colors hover:text-oaa-ink/70"
           >
             View all →
           </Link>

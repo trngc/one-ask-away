@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import { AlumnusNav } from "@/components/oaa/AlumnusNav";
 import { Avatar } from "@/components/oaa/Avatar";
@@ -25,7 +26,7 @@ export default function PastStudentsPage() {
 
   return (
     <>
-      <AlumnusNav />
+      <AlumnusNav active="past-students" />
 
       <main className="mx-auto max-w-[1200px] px-8 pb-32 pt-12">
         <h1 className="mb-8 font-sans text-[40px] font-semibold leading-[1.05] tracking-[-0.01em] text-oaa-ink">
@@ -57,12 +58,26 @@ export default function PastStudentsPage() {
                 </div>
 
                 <div className="flex items-center gap-4">
+                  {entry.reflectionStatus === "unreflected" && (
+                    <span className="rounded-xs bg-oaa-clay-tint-bg px-2 py-0.5 font-mono text-[10px] tracking-[0.06em] uppercase text-oaa-clay">
+                      Needs reflection
+                    </span>
+                  )}
                   <span className="text-[12px] text-oaa-muted">
                     {formatDate(entry.savedAt)}
                   </span>
-                  <span className="text-[13px] text-oaa-muted">
-                    Notes saved
-                  </span>
+                  {entry.reflectionStatus === "reflected" ? (
+                    <span className="text-[13px] text-oaa-ink">
+                      View notes →
+                    </span>
+                  ) : (
+                    <Link
+                      href={`/post-call-notes/${entry.studentId}`}
+                      className="text-[13px] text-oaa-clay hover:underline"
+                    >
+                      Reflect now →
+                    </Link>
+                  )}
                 </div>
               </div>
             ))}

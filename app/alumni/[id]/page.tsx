@@ -25,7 +25,7 @@ export default async function AlumnusDetailPage({ params }: Props) {
         backLabel="Back to matches"
         rightContent={
           <div className="flex items-center gap-4">
-            <Link href="/requests" className="text-[14px] text-oaa-muted hover:text-oaa-ink">
+            <Link href="/student-inbox" className="text-[14px] text-oaa-muted hover:text-oaa-ink">
               Inbox
             </Link>
             <Avatar variant="student" name={STUDENT.name} size="sm" />
@@ -144,7 +144,9 @@ export default async function AlumnusDetailPage({ params }: Props) {
                     />
                     <div>
                       <p className="text-[14px] font-semibold text-oaa-muted">{item.title}</p>
-                      <p className="mt-0.5 text-[13px] text-oaa-muted">{item.reason}</p>
+                      {item.reason && (
+                        <p className="mt-0.5 text-[13px] text-oaa-muted">{item.reason}</p>
+                      )}
                     </div>
                   </div>
                 ))}
