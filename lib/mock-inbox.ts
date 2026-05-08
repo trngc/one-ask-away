@@ -47,7 +47,7 @@ export const INBOX_REQUESTS: InboxRequest[] = [
     scopeStatus: "within-scope",
     receivedAt: "3 days ago",
     dueInHours: 0,
-    scheduledTime: "FRI MAY 8 · 5:00 PM EDT",
+    scheduledTime: "FRI MAY 2 · 5:00 PM EDT",
   },
   {
     id: "inbox-jordan",

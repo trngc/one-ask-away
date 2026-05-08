@@ -2,29 +2,15 @@
 
 import { use, useState } from "react";
 import { useRouter } from "next/navigation";
-import { notFound } from "next/navigation";
 import { Check } from "lucide-react";
 
 import { BackHeader } from "@/components/oaa/BackHeader";
 import { Avatar } from "@/components/oaa/Avatar";
-import { ChipPicker } from "@/components/oaa/ChipPicker";
 import { PrimaryButton } from "@/components/oaa/buttons";
 import { getInboxRequest } from "@/lib/mock-inbox";
 import { alumnusNotesStore } from "@/lib/alumnus-notes-store";
 
 type Props = { params: Promise<{ requestId: string }> };
-
-const STRENGTH_TAGS = [
-  "Strong communicator",
-  "Clear goals",
-  "Coachable",
-  "Well-prepared",
-  "Self-aware",
-  "Technical aptitude",
-  "Entrepreneurial",
-  "Growth mindset",
-  "Good follow-through",
-];
 
 const HIRING_SIGNAL_OPTIONS = [
   "I'd refer this person",
@@ -36,25 +22,38 @@ const HIRING_SIGNAL_OPTIONS = [
 
 export default function PostCallNotesPage({ params }: Props) {
   const { requestId } = use(params);
-  const found = getInboxRequest(requestId);
-  if (!found) notFound();
-  const req = found;
+
+  // Primary lookup: inbox request (e.g. inbox-maya)
+  const inboxReq = getInboxRequest(requestId);
+  // Fallback: alumnus notes store entry by studentId (e.g. aisha-patel)
+  const allNotes = alumnusNotesStore.getAll();
+  const storeEntry = !inboxReq
+    ? allNotes.find((e) => e.studentId === requestId)
+    : undefined;
+
+  // Derive display fields from whichever source resolved
+  const studentName = inboxReq?.student.name ?? storeEntry?.studentName ?? "";
+  const studentProgram = inboxReq?.student.program ?? storeEntry?.studentProgram ?? "";
+  const studentCohort = inboxReq?.student.cohort ?? storeEntry?.studentCohort ?? "";
+  const topic = inboxReq?.topic ?? storeEntry?.topic ?? "";
+  const scheduledTime = inboxReq?.scheduledTime;
 
   const router = useRouter();
-  const [strengthTags, setStrengthTags] = useState<string[]>([]);
-  const [hiringSignal, setHiringSignal] = useState<string | null>(null);
-  const [privateNotes, setPrivateNotes] = useState("");
+  const [standout, setStandout] = useState(storeEntry?.standout ?? "");
+  const [hiringSignal, setHiringSignal] = useState<string | null>(storeEntry?.hiringSignal || null);
+  const [privateNotes, setPrivateNotes] = useState(storeEntry?.privateNotes ?? "");
 
-  const student = req.student;
+  // Guard: if neither source found, render nothing
+  if (!inboxReq && !storeEntry) return null;
 
   function handleSave() {
     alumnusNotesStore.add({
       studentId: requestId,
-      studentName: student.name,
-      studentProgram: student.program,
-      studentCohort: student.cohort,
-      topic: req.topic,
-      strengthTags,
+      studentName,
+      studentProgram,
+      studentCohort,
+      topic,
+      standout,
       hiringSignal: hiringSignal ?? "",
       privateNotes,
       savedAt: new Date(),
@@ -77,8 +76,8 @@ export default function PostCallNotesPage({ params }: Props) {
       </div>
 
       <BackHeader
-        backHref={`/inbox/${requestId}`}
-        backLabel="Back to request"
+        backHref={inboxReq ? `/inbox/${requestId}` : "/past-students"}
+        backLabel={inboxReq ? "Back to request" : "Back to past students"}
         rightContent={
           <Avatar variant="alumnus-self" name="Adam Farouk" size="sm" />
         }
@@ -102,44 +101,41 @@ export default function PostCallNotesPage({ params }: Props) {
         <div className="mb-10 rounded-md border border-oaa-hairline bg-white p-5">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <Avatar variant="student" name={student.name} size="md" />
+              <Avatar variant="student" name={studentName} size="md" />
               <div>
                 <p className="text-[15px] font-semibold text-oaa-ink">
-                  {student.name}
+                  {studentName}
                 </p>
                 <p className="text-[13px] text-oaa-muted">
-                  {student.program} · {student.cohort}
+                  {studentProgram} · {studentCohort}
                 </p>
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-2">
               <span className="rounded-xs border border-oaa-hairline bg-white px-2 py-0.5 text-[12px] text-oaa-ink">
-                {req.topic}
+                {topic}
               </span>
-              {req.scheduledTime && (
+              {scheduledTime && (
                 <span className="text-[12px] text-oaa-muted">
-                  {req.scheduledTime}
+                  {scheduledTime}
                 </span>
               )}
             </div>
           </div>
         </div>
 
-        {/* Section 1 — Strength tags */}
+        {/* Section 1 — What stood out */}
         <div>
           <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-oaa-muted">
             What stood out?
           </p>
-          <p className="mt-1 text-[13px] text-oaa-muted">
-            Pick what&rsquo;s true, skip what isn&rsquo;t.
-          </p>
-          <div className="mt-3">
-            <ChipPicker
-              options={STRENGTH_TAGS}
-              value={strengthTags}
-              onChange={setStrengthTags}
-            />
-          </div>
+          <textarea
+            className="mt-3 w-full resize-none rounded-sm border border-oaa-hairline bg-white px-4 py-3 text-[14px] text-oaa-ink placeholder:text-oaa-muted/50 focus:border-oaa-ink/30 focus:outline-none"
+            rows={4}
+            placeholder="Strong communicator. Clear on goals. Would refer once she has more projects under her belt."
+            value={standout}
+            onChange={(e) => setStandout(e.target.value)}
+          />
         </div>
 
         {/* Section 2 — Hiring signal */}

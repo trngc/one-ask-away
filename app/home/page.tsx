@@ -1,11 +1,21 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { StudentNav } from "@/components/oaa/StudentNav";
 import { Avatar } from "@/components/oaa/Avatar";
 import { ContactAgainSection } from "@/components/oaa/ContactAgainSection";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
 import { STUDENT, MOCK_REQUESTS } from "@/lib/mock-student";
 import { TOP_3 } from "@/lib/mock-alumni";
+import { reflectionStore } from "@/lib/reflection-store";
+import { isDismissed, dismiss } from "@/lib/modal-dismissed";
 
 // Bug 6/7/8 — pill with hairline border, colored dot, black text, no trailing chevron
 const STATUS_DOT: Record<string, string> = {
@@ -35,10 +45,96 @@ function RequestStatusPill({ status }: { status: string }) {
 
 export default function StudentHomePage() {
   const activeRequests = MOCK_REQUESTS.filter((r) => r.status !== "completed");
+  const router = useRouter();
+
+  const [showModal, setShowModal] = useState(false);
+  const [unreflectedReq, setUnreflectedReq] = useState<typeof MOCK_REQUESTS[number] | null>(null);
+
+  useEffect(() => {
+    const unreflected = MOCK_REQUESTS.find(
+      (r) =>
+        r.status === "accepted" &&
+        !reflectionStore.getAll().some((e) => e.alumniId === r.alumniId),
+    );
+    if (!unreflected) return;
+    if (isDismissed(`reflect-student-${unreflected.id}`)) return;
+    setUnreflectedReq(unreflected);
+    const timer = setTimeout(() => setShowModal(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  function handleDismiss() {
+    if (unreflectedReq) dismiss(`reflect-student-${unreflectedReq.id}`);
+    setShowModal(false);
+  }
 
   return (
     <div className="min-h-screen bg-oaa-bg">
       <StudentNav active="none" />
+
+      {/* Reflection nudge modal */}
+      {unreflectedReq && (
+        <Dialog open={showModal} onOpenChange={(open) => { if (!open) handleDismiss(); }}>
+          <DialogContent
+            showCloseButton={false}
+            className="max-w-[440px] gap-0 overflow-hidden rounded-lg p-0"
+          >
+            {/* Header */}
+            <div className="px-6 pb-4 pt-6">
+              <p className="mb-2 font-mono text-[11px] tracking-[0.08em] uppercase text-oaa-clay">
+                After your call
+              </p>
+              <h2 className="text-[18px] font-semibold text-oaa-ink">
+                How did your call with {unreflectedReq.alumniName.split(" ")[0]} go?
+              </h2>
+              <p className="mt-1 text-[13px] text-oaa-muted">
+                Two minutes now saves the insight before it fades.
+              </p>
+            </div>
+
+            <hr className="border-oaa-hairline" />
+
+            {/* Body — context card */}
+            <div className="px-6 py-5">
+              <div className="flex items-center gap-3 rounded-md border border-oaa-hairline bg-white p-4">
+                <Avatar variant="alumnus" name={unreflectedReq.alumniName} size="sm" />
+                <div className="min-w-0">
+                  <p className="text-[14px] font-semibold text-oaa-ink">{unreflectedReq.alumniName}</p>
+                  <p className="text-[12px] text-oaa-muted">
+                    {unreflectedReq.alumniRole} · {unreflectedReq.alumniCompany}
+                  </p>
+                </div>
+                <span className="ml-auto shrink-0 rounded-xs border border-oaa-hairline bg-white px-2 py-0.5 text-[11px] text-oaa-muted">
+                  {unreflectedReq.topic}
+                </span>
+              </div>
+            </div>
+
+            <hr className="border-oaa-hairline" />
+
+            {/* Footer */}
+            <div className="flex items-center justify-between px-6 py-4">
+              <button
+                type="button"
+                onClick={handleDismiss}
+                className="text-[13px] text-oaa-muted transition-colors hover:text-oaa-ink"
+              >
+                Do this later
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowModal(false);
+                  router.push(`/reflect/${unreflectedReq.id}`);
+                }}
+                className="rounded-sm bg-oaa-ink px-4 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-oaa-ink/90"
+              >
+                Reflect now →
+              </button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
 
       <main className="mx-auto max-w-[1200px] px-8 py-12">
         {/* Greeting */}

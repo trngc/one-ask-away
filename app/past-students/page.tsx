@@ -67,9 +67,12 @@ export default function PastStudentsPage() {
                     {formatDate(entry.savedAt)}
                   </span>
                   {entry.reflectionStatus === "reflected" ? (
-                    <span className="text-[13px] text-oaa-ink">
+                    <Link
+                      href={`/past-students/${entry.studentId}`}
+                      className="text-[13px] text-oaa-ink hover:underline"
+                    >
                       View notes →
-                    </span>
+                    </Link>
                   ) : (
                     <Link
                       href={`/post-call-notes/${entry.studentId}`}

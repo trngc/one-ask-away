@@ -188,28 +188,28 @@ Scale (size / line-height / tracking):
 - **Preferred-choice-within-equals** (AcceptModal time slots, DeclineModal reason, /reflect follow-up intent, /post-call-notes hiring signal): selected = `border-oaa-clay-tint-border bg-oaa-clay-tint-bg`. Signals "you are choosing your preference within a set of valid options."
 - **Form-input category** (ReportModal reason): selected = `border-2 border-oaa-ink`, no bg fill. Signals "you are classifying/reporting, not expressing preference."
 
-### ChipPicker component (`components/oaa/ChipPicker.tsx`)
-Thin controlled wrapper around `Chip mode="select"`. Always passes `className="w-auto"` to override Chip's built-in `w-full` via twMerge, so chips fit their label width in a flex-wrap row. Fully controlled — no internal state.
-
-Usage:
-```tsx
-<ChipPicker options={TAGS} value={selected} onChange={setSelected} />
-```
-
-Props: `options: string[]`, `value: string[]`, `onChange: (v: string[]) => void`, `className?: string`.
-
-DO NOT use shadcn for chip pickers. This is the canonical pattern.
-
 ### Reflection page pattern (`/reflect/[requestId]`)
 Client page (`"use client"`) replacing the former `ReflectionModal`. Architecture:
 - Chrome: thin screen status strip above `BackHeader` → `max-w-[720px]` main → `pb-24` for sticky bar clearance
 - Screen status strip: `border-b border-oaa-hairline bg-white` full-width bar with mono-caps screen number left + breadcrumb path right
-- Three sections separated by `mt-10` (no `<hr>` dividers): (1) `ChipPicker` multi-select, (2) full-width clay-tint radio buttons, (3) optional textarea with helper text "Only you see this."
-- AI next step: peach-tint callout card below textarea
+- Three sections separated by `mt-10` (no `<hr>` dividers): (1) free-text textarea "What stood out" (hairline border = user-authored), (2) full-width clay-tint radio buttons, (3) optional private notes textarea
+- AI next step: peach-tint card with editable textarea (`border-oaa-clay-tint-border` = AI content signal) + "AI drafted" badge + RotateCw "Regenerate · N of 2 left" button. 3 hardcoded variants cycle on click.
 - Sticky save bar: `fixed bottom-0 left-0 right-0 z-10 border-t border-oaa-hairline bg-white px-8 py-4`, save button disabled until radio section has a selection
-- On save: writes to store → `router.push('/past-contacts')` (student) or `router.push('/past-students')` (alumnus)
+- On save: writes to store → `router.push('/home')` (student) or `router.push('/past-students')` (alumnus)
 
-`ReflectionModal` has been permanently deleted. Do not re-create it.
+`ReflectionModal` and `ChipPicker` have been permanently deleted. Do not re-create them.
+
+### Forced reflection modal pattern
+Mount-triggered `Dialog` (no `DialogTrigger`) on `/home` (student) and `/inbox` (alumnus). Detection: first request where `status === "accepted"` and no matching store entry exists. Delay: 500ms `setTimeout` in `useEffect` to avoid jarring pop-on-mount. Dismissal: module-level `Set<string>` in `lib/modal-dismissed.ts`, keyed `reflect-student-{id}` or `reflect-alumnus-{id}`, resets on page reload (intentional for demo).
+
+If multiple unreflected calls exist, they are surfaced sequentially across reloads. Acceptable for demo; v1.1 should consider a queue or "next call" indicator.
+
+Controlled dialog pattern (no `DialogTrigger`):
+```tsx
+<Dialog open={showModal} onOpenChange={(open) => { if (!open) handleDismiss(); }}>
+  <DialogContent ...>...</DialogContent>
+</Dialog>
+```
 
 ### Design intent — context-based link emphasis
 `/home` match preview cards use `text-oaa-clay` on "View profile" links (high-density preview context — clay aids scanability across 3 side-by-side cards). `/matches` MatchCard uses `text-oaa-ink` with muted ArrowRight (full-discovery weight — ink signals authority for the primary page where matching happens). This is intentional, not drift.

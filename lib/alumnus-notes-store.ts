@@ -4,7 +4,7 @@ export type AlumnusNoteEntry = {
   studentProgram: string;
   studentCohort: string;
   topic: string;
-  strengthTags: string[];
+  standout: string;
   hiringSignal: string;
   privateNotes: string;
   savedAt: Date;
@@ -17,7 +17,12 @@ const _listeners = new Set<() => void>();
 export const alumnusNotesStore = {
   getAll: () => _entries,
   add: (entry: Omit<AlumnusNoteEntry, "reflectionStatus"> & { reflectionStatus?: "reflected" | "unreflected" }) => {
-    _entries = [..._entries, { reflectionStatus: "reflected", ...entry }];
+    const withStatus: AlumnusNoteEntry = { reflectionStatus: "reflected", ...entry };
+    if (_entries.some((e) => e.studentId === entry.studentId)) {
+      _entries = _entries.map((e) => e.studentId === entry.studentId ? withStatus : e);
+    } else {
+      _entries = [..._entries, withStatus];
+    }
     _listeners.forEach((fn) => fn());
   },
   subscribe: (fn: () => void): (() => void) => {
@@ -35,10 +40,11 @@ function seedMockEntries(): void {
       studentProgram: "MMA",
       studentCohort: "'26",
       topic: "Career pivot",
-      strengthTags: ["Strong communicator", "Clear goals", "Coachable"],
+      standout:
+        "Sharp on the pivot story — knows exactly which roles she's targeting and why. Communicates clearly and takes feedback well.",
       hiringSignal: "Strong candidate — keep an eye on",
       privateNotes:
-        "Sharp on the pivot story. Knows exactly which roles she's targeting and why. Would refer once she has 1-2 more analytics projects in her portfolio.",
+        "Would refer once she has 1-2 more analytics projects in her portfolio.",
       savedAt: new Date("2026-05-01T17:30:00"),
       reflectionStatus: "reflected",
     },
@@ -48,10 +54,11 @@ function seedMockEntries(): void {
       studentProgram: "MMA",
       studentCohort: "'26",
       topic: "Portfolio review",
-      strengthTags: ["Technical aptitude", "Self-aware", "Good follow-through"],
+      standout:
+        "Solid technical foundation, especially on SQL and dbt work. Self-aware about gaps and follows through on suggestions from previous calls.",
       hiringSignal: "I'd refer this person",
       privateNotes:
-        "Solid portfolio — SQL and dbt work is real. Recommended she add a marketing-mix model project to round out the storytelling side.",
+        "Recommended she add a marketing-mix model project to round out the storytelling side.",
       savedAt: new Date("2026-04-23T14:00:00"),
       reflectionStatus: "reflected",
     },
@@ -61,10 +68,11 @@ function seedMockEntries(): void {
       studentProgram: "MMA",
       studentCohort: "'25",
       topic: "Behavioral interview",
-      strengthTags: ["Clear goals", "Well-prepared"],
+      standout:
+        "Came well-prepared with structured questions. Has clear goals about which industries he's targeting.",
       hiringSignal: "Promising — needs more experience",
       privateNotes:
-        "Did the interview prep well. Stories were structured but a bit rehearsed — encouraged him to leave room for natural follow-ups.",
+        "Stories were structured but a bit rehearsed — encouraged him to leave room for natural follow-ups.",
       savedAt: new Date("2026-04-14T11:00:00"),
       reflectionStatus: "reflected",
     },
@@ -74,7 +82,7 @@ function seedMockEntries(): void {
       studentProgram: "MMA",
       studentCohort: "'26",
       topic: "Data case",
-      strengthTags: [],
+      standout: "",
       hiringSignal: "",
       privateNotes: "",
       savedAt: new Date(Date.now() - 24 * 60 * 60 * 1000),

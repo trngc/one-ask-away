@@ -4,8 +4,10 @@ export type ReflectionEntry = {
   alumniRole: string;
   alumniCompany: string;
   topic: string;
+  standout: string;
   helpful: string;
   note: string;
+  aiNextStep: string;
   savedAt: Date;
 };
 
