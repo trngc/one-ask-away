@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Pencil } from "lucide-react";
+import { ExternalLink, Pencil } from "lucide-react";
 
 import { Avatar } from "@/components/oaa/Avatar";
 
@@ -7,6 +7,7 @@ import { DisplayHeading } from "@/components/oaa/DisplayHeading";
 import { Header } from "@/components/oaa/Header";
 import { GhostButton, PrimaryLink } from "@/components/oaa/buttons";
 import { Switch } from "@/components/ui/switch";
+import { STUDENT } from "@/lib/mock-student";
 
 const ASPIRATIONS = [
   { rank: 1, label: "Data Analyst", primary: true },
@@ -85,6 +86,17 @@ export default function ProfilePage() {
               middle="Marketing analyst intern"
               right="2024-2025"
             />
+            {STUDENT.portfolioUrl && (
+              <a
+                href={STUDENT.portfolioUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-[13px] text-oaa-muted transition-colors hover:text-oaa-ink"
+              >
+                <ExternalLink className="h-4 w-4" strokeWidth={1.5} aria-hidden />
+                Portfolio
+              </a>
+            )}
             <Divider />
             <div className="flex flex-wrap gap-2">
               {SKILLS.map((s) => (

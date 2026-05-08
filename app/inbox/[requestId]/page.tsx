@@ -2,6 +2,7 @@
 
 import { use, useState } from "react";
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import { notFound } from "next/navigation";
 import { useRouter } from "next/navigation";
 
@@ -189,6 +190,26 @@ export default function InboxRequestDetailPage({ params }: Props) {
                   ))}
                 </div>
               </div>
+
+              {student.portfolioUrl && (
+                <>
+                  <hr className="my-4 border-oaa-hairline" />
+                  <div>
+                    <p className="mb-2 text-[11px] uppercase tracking-[0.06em] text-oaa-muted">
+                      Portfolio
+                    </p>
+                    <a
+                      href={student.portfolioUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-[13px] text-oaa-muted transition-colors hover:text-oaa-ink"
+                    >
+                      <ExternalLink className="h-4 w-4" strokeWidth={1.5} aria-hidden />
+                      Portfolio
+                    </a>
+                  </div>
+                </>
+              )}
             </div>
           </aside>
         </div>

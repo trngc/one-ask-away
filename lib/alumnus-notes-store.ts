@@ -18,8 +18,12 @@ export const alumnusNotesStore = {
   getAll: () => _entries,
   add: (entry: Omit<AlumnusNoteEntry, "reflectionStatus"> & { reflectionStatus?: "reflected" | "unreflected" }) => {
     const withStatus: AlumnusNoteEntry = { reflectionStatus: "reflected", ...entry };
-    if (_entries.some((e) => e.studentId === entry.studentId)) {
-      _entries = _entries.map((e) => e.studentId === entry.studentId ? withStatus : e);
+    // Dedup by studentName + topic — same conversation regardless of ID space
+    const idx = _entries.findIndex(
+      (e) => e.studentName === entry.studentName && e.topic === entry.topic,
+    );
+    if (idx !== -1) {
+      _entries = _entries.map((e, i) => (i === idx ? withStatus : e));
     } else {
       _entries = [..._entries, withStatus];
     }

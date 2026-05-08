@@ -59,6 +59,7 @@ export default function BackgroundPage() {
       end: "2025",
     },
   ]);
+  const [portfolioUrl, setPortfolioUrl] = useState("");
   const [skills, setSkills] = useState<string[]>([
     "SQL",
     "Python",
@@ -305,6 +306,19 @@ export default function BackgroundPage() {
           >
             + Add another experience
           </button>
+        </section>
+
+        {/* Portfolio or GitHub */}
+        <section className="mt-16 flex flex-col gap-4">
+          <span className="font-mono text-[11px] leading-[1.4] tracking-[0.08em] uppercase text-oaa-muted">
+            Portfolio or GitHub · optional
+          </span>
+          <Input
+            value={portfolioUrl}
+            onChange={(e) => setPortfolioUrl(e.target.value)}
+            placeholder="github.com/yourhandle or portfolio.yourname.com"
+            className="h-12 rounded-sm border-oaa-hairline px-4 text-[14px]"
+          />
         </section>
 
         {/* Skills */}

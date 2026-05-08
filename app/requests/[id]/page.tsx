@@ -254,18 +254,6 @@ export default async function RequestDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Alumni note */}
-            {req.alumniNote && (
-              <div className="rounded-md border border-oaa-clay-tint-border bg-oaa-clay-tint-bg px-6 py-5">
-                <p className="mb-2 text-[14px] leading-[1.6] text-oaa-ink italic">
-                  "{req.alumniNote}"
-                </p>
-                <p className="font-mono text-[10px] tracking-[0.08em] uppercase text-oaa-clay">
-                  From {firstName}
-                </p>
-              </div>
-            )}
-
             {/* Mark complete */}
             <MarkCompleteSection
               requestId={id}

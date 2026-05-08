@@ -30,7 +30,7 @@ export function AlumnusNav({ active, unreadCount = 0 }: Props) {
             >
               <span
                 className={
-                  active === link.key ? "underline underline-offset-2" : undefined
+                  active === link.key ? "underline decoration-2 underline-offset-4" : undefined
                 }
               >
                 {link.label}

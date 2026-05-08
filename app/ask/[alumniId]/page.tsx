@@ -73,6 +73,16 @@ export default function AskComposerPage({ params }: Props) {
           <p className="mt-2 text-[15px] text-oaa-muted">
             One scoped ask. 15 minutes. Real answers.
           </p>
+          {alumnus.customMessage && (
+            <div className="mt-4 border-l-2 border-oaa-clay-tint-border bg-oaa-bg px-5 py-4">
+              <p className="mb-2 font-mono text-[10px] tracking-[0.08em] uppercase text-oaa-clay">
+                From {firstName}
+              </p>
+              <p className="text-[14px] leading-[1.6] text-oaa-ink italic">
+                &ldquo;{alumnus.customMessage}&rdquo;
+              </p>
+            </div>
+          )}
         </div>
 
         {step === 1 && (

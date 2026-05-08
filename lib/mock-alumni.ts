@@ -35,6 +35,7 @@ export type AlumnusProfile = {
   linkedinUrl: string;
   score: number;
   shortBio: string; // quote on match card
+  customMessage?: string; // shown on /ask compose page to set expectations
   background: BackgroundEntry[];
   industries: string[];
   offerings: Offering[];
@@ -59,6 +60,7 @@ export const ALUMNI: AlumnusProfile[] = [
     linkedinUrl: "https://linkedin.com/in/adam-farouk",
     score: 92,
     shortBio: "Pivoted from McKinsey to Shopify analytics — same path you're considering.",
+    customMessage: "I prep for these. So come ready — share a doc, a question, a goal. Vague messages get vague answers.",
     background: [
       { company: "Shopify", role: "Director of Data", location: "Toronto", start: "2022", end: "Present" },
       { company: "RBC", role: "Senior Data Analyst", start: "2019", end: "2022" },

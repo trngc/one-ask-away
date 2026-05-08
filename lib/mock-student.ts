@@ -8,6 +8,7 @@ export type Student = {
   aspirations: string[];
   helpNeeds: string[];
   background: { institution: string; role: string }[];
+  portfolioUrl?: string;
 };
 
 export type MockRequest = {
@@ -51,6 +52,7 @@ export const STUDENT: Student = {
     { institution: "McGill", role: "Master of Mgmt in Analytics" },
     { institution: "Lululemon", role: "Marketing analyst intern" },
   ],
+  portfolioUrl: "https://github.com/mayachen-mma",
 };
 
 const JORDAN_LIU: Student = {
